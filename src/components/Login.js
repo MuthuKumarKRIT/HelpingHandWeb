@@ -42,6 +42,7 @@ export default class Login extends Component {
         password: '',
       });
       window.location='/homel';
+      sessionStorage.setItem('name', res.data.name);
     }
   )
     .catch(err => {
@@ -70,7 +71,7 @@ export default class Login extends Component {
           </div>
           <div className="form-group"> 
             <label>Password: </label>
-            <input  type="text"
+            <input  type="password"
                 className="form-control"
                 value={this.state.password}
                 onChange={this.onChangePassword}

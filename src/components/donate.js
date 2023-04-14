@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './donate.css';
 import NavbarL from './navbar';
-import './donate.css'
 export default class Donate extends Component {
   constructor(props) {
     super(props);
@@ -34,14 +34,13 @@ export default class Donate extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
-
+    const name = sessionStorage.getItem('name');
     const donate = {
+      name:name,
       pname: this.state.pname,
       quant:this.state.quant,
       description: this.state.description,
     }
-
-   // console.log(user);
 
     axios.post('http://localhost:5000/donates/donate', donate)
     .then(res => {
@@ -53,12 +52,16 @@ export default class Donate extends Component {
       });
     })
     .catch(err => {
+      if(err.response.data.error=='/login'){
+        window.location=err.response.data.error;
+      }
+      else{
       alert(err.response.data.error);
       this.setState({
         pname: '',
         quant:'',
         description: '',
-      });
+      });}
     });
   }
   render() {

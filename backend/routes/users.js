@@ -13,7 +13,7 @@ router.route('/add').post((req, res) => {
   if(!username || !mail || !password){
     return res.status(422).json({error:"Mandatory fields"})
   }
-  else if(!username.match(/^[a-zA-Z]*$/)){
+  else if(!username.match(/^[a-zA-Z ]*$/)){
     return res.status(422).json({error:"Name should only contain alphabets"})
   }
   else if(!mail.match(/^[0-9a-zA-Z]*[@]{1}[a-zA-Z]{3,}[\.]{1}[a-zA-Z]{2,}$/)){
@@ -49,7 +49,7 @@ router.route('/search').post((req, res) => {
   }
   User.findOne({ $and: [{ mail:mail }, { password: password }] }).then((foundUser) => {
     if(foundUser){
-        return res.json({message:"Redirecting to homepage.."})
+        return res.json({message:"Redirecting to homepage..",name:mail})
     }
     else{
       return res.status(400).json({error:"Invalid Credentials"});

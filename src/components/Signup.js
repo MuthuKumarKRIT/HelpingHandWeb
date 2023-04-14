@@ -52,6 +52,7 @@ export default class CreateUser extends Component {
         mail:'',
         password: '',
       });
+      window.location='/login';
     })
     .catch(err => {
       alert(err.response.data.error);
@@ -71,7 +72,7 @@ export default class CreateUser extends Component {
         <h5>SIGN UP</h5>
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
-            <label>Username: </label>
+            <label>Name: </label>
             <input  type="text"
                 className="form-control"
                 value={this.state.username}
@@ -88,7 +89,7 @@ export default class CreateUser extends Component {
           </div>
           <div className="form-group"> 
             <label>Password: </label>
-            <input  type="text"
+            <input  type="password"
                 className="form-control"
                 value={this.state.password}
                 onChange={this.onChangePassword}

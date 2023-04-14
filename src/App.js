@@ -7,6 +7,8 @@ import Home from "./components/home";
 import HomeL from './components/home-login';
 import Logout from './components/Logout';
 import Donate from './components/donate';
+import DonationList from './components/donate-list';
+import DonationListL from './components/donate-user';
 function App() {
   return (
         <Router>
@@ -16,7 +18,9 @@ function App() {
             <Route path="/register" element={<CreateUser />} />
             <Route path="/homel" element={<HomeL />} />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/donate" element={<Donate />} />
+            <Route path="/donate" element={<Donate/>} />
+            <Route path="/view-all" element={<DonationList/>} />
+            <Route path="/view" element={<DonationListL/>} />
           </Routes>
         </Router>
   );
