@@ -35,6 +35,13 @@ export default class DonationListL extends Component {
       })
   }
   donateList() {
+    if(this.state.donatess.length==0){
+      return (
+        <tr>
+          <td colSpan="3" className="text-center">No results found</td>
+        </tr>
+      );
+    }
     return this.state.donatess.map(currentdonate=> {
       return <DonateL donate={currentdonate}/>;
     })

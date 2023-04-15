@@ -17,7 +17,11 @@ export default class DonationList extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/donates/')
+    const name = sessionStorage.getItem('name');
+    const donate = {
+      name:name,
+    }
+    axios.get('http://localhost:5000/donates/v',{ params: { name } })
       .then(response => {
         this.setState({ donates: response.data })
       })
@@ -31,6 +35,13 @@ export default class DonationList extends Component {
       })
   }
   donateList() {
+    if(this.state.donates.length==0){
+      return (
+        <tr>
+          <td colSpan="3" className="text-center">No results found</td>
+        </tr>
+      );
+    }
     return this.state.donates.map(currentdonate=> {
       return <Donate donate={currentdonate}/>;
     })

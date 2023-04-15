@@ -1,6 +1,6 @@
 const router = require('express').Router();
 let donate = require('../models/donate.model');
-router.route('/').get((req, res) => {
+router.route('/v').get((req, res) => {
   const name = req.query.name;
   if(!name){
     return res.status(422).json({error:"/login"})
