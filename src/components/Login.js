@@ -35,7 +35,7 @@ export default class Login extends Component {
     }
 
    console.log(user);
-    axios.post('https://643a4045a663935b2848b15e--beamish-elf-058c76.netlify.app//users/search', user)
+    axios.post('https://643a4045a663935b2848b15e--beamish-elf-058c76.netlify.app/users/search', user)
     .then(res => {
       this.setState({
         mail:'',
