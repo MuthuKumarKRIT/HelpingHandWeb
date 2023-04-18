@@ -49,7 +49,7 @@ router.route('/search').post((req, res) => {
   }
   User.findOne({ $and: [{ mail:mail }, { password: password }] }).then((foundUser) => {
     if(foundUser){
-        return res.json({message:"Redirecting to homepage..",name:mail})
+        return res.json({message:"Redirecting to homepage..", name:mail})
     }
     else{
       return res.status(400).json({error:"Invalid Credentials"});

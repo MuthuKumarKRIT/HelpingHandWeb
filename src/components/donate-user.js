@@ -18,9 +18,6 @@ export default class DonationListL extends Component {
 
   componentDidMount() {
     const name = sessionStorage.getItem('name');
-    const donate = {
-      name:name,
-    }
     axios.get('http://localhost:5000/donates/view',{ params: { name } })
       .then(response => {
         this.setState({donatess: response.data })
@@ -57,7 +54,7 @@ export default class DonationListL extends Component {
             <tr>
               <th>Product Name</th>
               <th>Quantity(No/Weight in Kg)</th>
-              <th>Duration</th>
+              <th>Description</th>
             </tr>
           </thead>
           <tbody>

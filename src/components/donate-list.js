@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import NavbarL from './navbar';
-import './donate-list.css'
+import './donate-list.css';
 const Donate = props => (
   <tr>
     <td>{props.donate.pname}</td>
     <td>{props.donate.quant}</td>
     <td>{props.donate.description}</td>
+    <td>
+    <div className="form-page">
+    <input
+          type="submit"
+          value="Contact by Mail"
+          className="btn btn-primary"
+          onClick={() => {
+            window.location.href = `mailto:${props.donate.name}?subject=Contacting you through helping Hand App`;
+          }}
+        />
+          </div>
+    </td>
   </tr>
 )
 
@@ -18,9 +30,6 @@ export default class DonationList extends Component {
 
   componentDidMount() {
     const name = sessionStorage.getItem('name');
-    const donate = {
-      name:name,
-    }
     axios.get('http://localhost:5000/donates/v',{ params: { name } })
       .then(response => {
         this.setState({ donates: response.data })
@@ -46,7 +55,6 @@ export default class DonationList extends Component {
       return <Donate donate={currentdonate}/>;
     })
   }
-
   render() {
     return (
       <div>
@@ -57,7 +65,8 @@ export default class DonationList extends Component {
             <tr>
               <th>Product Name</th>
               <th>Quantity(No/Weight in Kg)</th>
-              <th>Duration</th>
+              <th>Description</th>
+              <th>Mail ID</th>
             </tr>
           </thead>
           <tbody>

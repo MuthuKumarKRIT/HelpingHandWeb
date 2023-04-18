@@ -7,7 +7,7 @@ router.route('/v').get((req, res) => {
   }
   donate.find()
     .then(donates => res.json(donates))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => res.status(400).json({error:"Some error occured"}));
 });
 router.route('/view').get((req, res) => {
   const name = req.query.name;
@@ -47,4 +47,5 @@ router.route('/donate').post((req, res) => {
   .then(() => res.json({message:'Donation added!'}))
   .catch(err => res.status(400).json({error:"Some error ocurred"}));;
 });
+
 module.exports = router;
