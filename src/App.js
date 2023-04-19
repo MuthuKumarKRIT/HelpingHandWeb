@@ -9,6 +9,8 @@ import Logout from './components/Logout';
 import Donate from './components/donate';
 import DonationList from './components/donate-list';
 import DonationListL from './components/donate-user';
+import Forgot from './components/forgot';
+import Change from './components/change-pass';
 function App() {
   return (
         <Router>
@@ -21,6 +23,8 @@ function App() {
             <Route path="/donate" element={<Donate/>} />
             <Route path="/view-all" element={<DonationList/>} />
             <Route path="/view" element={<DonationListL/>} />
+            <Route path="/change" element={<Forgot/>} />
+            <Route path="/forgot" element={<Change/>} />
           </Routes>
         </Router>
   );

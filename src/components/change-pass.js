@@ -2,53 +2,58 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import './Login.css';
 import Navbar from './navbar.component';
-export default class Login extends Component {
+export default class Change extends Component {
   constructor(props) {
     super(props);
     this.onChangePassword = this.onChangePassword.bind(this);
-    this.onChangeMail = this.onChangeMail.bind(this);
+    this.onChangeOtp = this.onChangeOtp.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      mail: '',
       password: '',
+      otp:'',
     };
-  }
-
-  onChangeMail(e) {
-    this.setState({
-      mail: e.target.value
-    })
   }
   onChangePassword(e) {
     this.setState({
       password: e.target.value
     })
   }
+  onChangeOtp(e) {
+    this.setState({
+      otp: e.target.value
+    })
+  }
   onSubmit(e) {
     e.preventDefault();
-
+    const mail=sessionStorage.getItem('mail');
     const user = {
-      mail:this.state.mail,
-      password: this.state.password,
+        mail:mail,
+        password: this.state.password,
+        otp:this.state.otp,
     }
-
-   console.log(user);
-    axios.post('http://localhost:5000/users/search', user)
+    axios.post('http://localhost:5000/users/change', user)
     .then(res => {
+        alert(res.data.message);
       this.setState({
-        mail:'',
         password: '',
+        otp:'',
       });
-      window.location='/homel';
-      sessionStorage.setItem('name', res.data.name);
+      window.location='/login';
+      sessionStorage.setItem('mail', '');
     }
   )
     .catch(err => {
       alert(err.response.data.error);
       this.setState({
-        mail:'',
         password: '',
+        otp:'',
       });
+      if(err.response.data.redirect){
+        window.location=err.response.data.redirect;
+        sessionStorage.setItem('mail', '');
+      }
+      window.location='/change';
+      sessionStorage.setItem('mail', '');
     });
   }
   render() {
@@ -57,29 +62,26 @@ export default class Login extends Component {
         <Navbar />
       <div class="background">
         <div className="container">
-        <h5>LOGIN</h5>
+        <h5>Change Password</h5>
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
-            <label>Mail ID: </label>
+            <label>New Password: </label>
             <input  type="text"
-                className="form-control"
-                value={this.state.mail}
-                onChange={this.onChangeMail}
-                />
-          </div>
-          <div className="form-group"> 
-            <label>Password: </label>
-            <input  type="password"
                 className="form-control"
                 value={this.state.password}
                 onChange={this.onChangePassword}
                 />
           </div>
-          <div className="form-group">
-            <input type="submit" value="Log in" className="btn btn-primary" />
-          </div>
           <div className="form-group"> 
-            <a href="/change">Forgot Password?</a>
+            <label>Enter OTP: </label>
+            <input  type="text"
+                className="form-control"
+                value={this.state.otp}
+                onChange={this.onChangeOtp}
+                />
+          </div>
+          <div className="form-group">
+            <input type="submit" value="Change Password" className="btn btn-primary" />
           </div>
         </form>
         </div>

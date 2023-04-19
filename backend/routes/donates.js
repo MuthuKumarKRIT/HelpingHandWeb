@@ -5,7 +5,7 @@ router.route('/v').get((req, res) => {
   if(!name){
     return res.status(422).json({error:"/login"})
   }
-  donate.find()
+  donate.find({ name: { $ne: name } })
     .then(donates => res.json(donates))
     .catch(err => res.status(400).json({error:"Some error occured"}));
 });
@@ -16,7 +16,7 @@ router.route('/view').get((req, res) => {
   }
   donate.find({name: name})
     .then(donates => res.json(donates))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => res.status(400).json({error:"Some error occured"}));
 });
 
 router.route('/donate').post((req, res) => {
