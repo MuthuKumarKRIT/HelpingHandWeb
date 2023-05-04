@@ -14,7 +14,7 @@ const Donate = props => (
           value="Contact by Mail"
           className="btn btn-primary"
           onClick={() => {
-            window.location.href = `mailto:${props.donate.name}?subject=Contacting you through helping Hand App`;
+            window.location.href = `mailto:${props.donate.name}?subject=Contacting you through helping Hand`;
           }}
         />
           </div>
