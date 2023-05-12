@@ -66,7 +66,7 @@ export default class Change extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
             <label>New Password: </label>
-            <input  type="text"
+            <input  type="password"
                 className="form-control"
                 value={this.state.password}
                 onChange={this.onChangePassword}
