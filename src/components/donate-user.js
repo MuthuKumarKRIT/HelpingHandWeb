@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import NavbarL from './navbar';
+import {Link} from 'react-router-dom';
 import './donate-list.css'
 const DonateL = props => (
   <tr>
     <td>{props.donate.pname}</td>
     <td>{props.donate.quant}</td>
     <td>{props.donate.description}</td>
+    <td><a href="#" onClick={() => { props.deleteDonate(props.donate._id) }}>Delete</a></td>
   </tr>
 )
 
@@ -14,6 +16,7 @@ export default class DonationListL extends Component {
   constructor(props) {
     super(props);
     this.state = {donatess: []};
+    this.deleteDonate = this.deleteDonate.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +34,18 @@ export default class DonationListL extends Component {
           }
       })
   }
+  deleteDonate(id) {
+    axios.delete('http://localhost:5000/donates/delete',{ params: { id } })
+      .then(response => { 
+        this.setState({
+          donatess: this.state.donatess.filter(el => el._id !== id)
+        });
+      alert(response.data)})
+      .catch((err) => {
+       alert(err.response.data);
+
+      })
+  }
   donateList() {
     if(this.state.donatess.length==0){
       return (
@@ -40,7 +55,7 @@ export default class DonationListL extends Component {
       );
     }
     return this.state.donatess.map(currentdonate=> {
-      return <DonateL donate={currentdonate}/>;
+      return <DonateL donate={currentdonate} deleteDonate={this.deleteDonate} key={currentdonate._id}/>;
     })
   }
 
@@ -55,6 +70,7 @@ export default class DonationListL extends Component {
               <th>Product Name</th>
               <th>Quantity(No/Weight in Kg)</th>
               <th>Description</th>
+              <th>Updates</th>
             </tr>
           </thead>
           <tbody>

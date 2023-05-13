@@ -33,7 +33,7 @@ router.route('/donate').post((req, res) => {
   else if(!pname.match(/^[a-zA-Z ]*$/)){
     return res.status(422).json({error:"Product Name should only contain alphabets"})
   }
-  else if(!quant.match(/^[0-9]*$/)){
+  else if(!quant.match(/^[1-9][0-9]*$/)){
     return res.status(422).json({error:"Quantity is badly formatted"})
   }
   const newdonate = new donate({
@@ -46,6 +46,12 @@ router.route('/donate').post((req, res) => {
   newdonate.save()
   .then(() => res.json({message:'Donation added!'}))
   .catch(err => res.status(400).json({error:"Some error ocurred"}));;
+});
+router.route('/delete').delete((req, res) => {
+  const id=req.query.id;
+  donate.findByIdAndDelete(id)
+    .then(() => res.json('Donation Deleted'))
+    .catch(err => res.status(400).json('Internal Error..'));
 });
 
 module.exports = router;

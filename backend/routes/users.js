@@ -7,7 +7,6 @@ const apiKey = defaultClient.authentications['api-key'];
 apiKey.apiKey = process.env.SENDINBLUE_API_KEY;
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-//const nodemailer = require('nodemailer');
 require('dotenv').config();
 router.route('/').get((req, res) => {
   User.find()
